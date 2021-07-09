@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://kit.fontawesome.com/460fdf8dfc.js" crossorigin="anonymous">
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+    <script>
+        function list(){
+            location.href="/";
+        }
+    </script>
+    <%- include("./head.ejs") %>
+</head>
+<body>
+    <%- include("./nav.ejs") %>
+    <form action="/board/update_2" method="POST">
+    <table>
+        <tr>
+            <th scope="cols"></th>
+            <th scope="cols">title</th>
+            <th scope="cols">content</th>
+            <th scope="cols">image</th>
+            <th scope="cols"></th>
+        </tr>
+            <td><input type="hidden" value="<%=content[0].no%>" name="no" id="up_no"></td>
+            <td><input type="text" value="<%=content[0].title %>" name="title" id="up_title"></td>
+            <td><input type="text" value="<%=content[0].content%>" name="content" id="up_content"></td>
+            <td><input type="text" value="<%=content[0].img%>" name="img" id="up_img"></td>
+            <td><input type="hidden" value="<%=content[0].post_id%>" name="post_id" id="up_id"></td>
+    </table>
+    <div class="updateBtn">
+        <input type="submit" id="up_submit" value="수정">
+    </form>
+    </div>
+    
+</body>
+</html>

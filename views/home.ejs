@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://kit.fontawesome.com/460fdf8dfc.js" crossorigin="anonymous">
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+    <script>
+        //location은 get형식
+        function add_list(){
+            location.href="/board/adding";
+        }
+        function info(no){
+            location.href="/board/content?no="+no;
+        }
+    </script>
+    <%- include("./head.ejs") %>
+</head>
+<body>
+    <%- include("./nav.ejs") %>
+        <div>
+            <thead> 
+                <table>        
+                    <tr>
+                        <th scope="cols">No</th>
+                        <th scope="cols">title</th>
+                        <th scope="cols">image</th>
+                        <th scope="cols">date</th>
+                        <th scope="cols">time</th>
+                        <th scope="cols">author</th>
+                    </tr>
+            </thead>
+            <% for(var i=0; i<board_list.length; i++){%>
+            <tr onclick="info('<%=board_list[i].no%>')">
+                <td id="no"><%=board_list[i].no%></td>
+                <td id="title"><%=board_list[i].title%></td>
+                <td id="image"><img src="<%=board_list[i].img%>" width=200px></td>
+                <td id="date"><%=board_list[i].date%></td>
+                <td id="time"><%=board_list[i].time%></td>
+                <td id="author"><%=board_list[i].author%></td>
+            </tr>
+            <%}%>
+        </table>
+        </div>
+        <div class="homeBtn">
+            <button onclick="add_list()">추가</button>
+        </div>
+    
+</body>
+</html>

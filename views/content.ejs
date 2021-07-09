@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://kit.fontawesome.com/460fdf8dfc.js" crossorigin="anonymous">
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+    <script>
+        function update(msg){
+            location.href="/board/update?no="+msg;
+        }
+        function del(msg){
+            location.href="/board/del?no="+msg;
+        }
+        function list(){
+            location.href="/board/";
+        }
+        function del_cmt(no, parent_num){
+            location.href="/board/del_cmt?no="+no+"&parent_num="+parent_num;
+        }
+        function up(no, parent_num, up){
+            location.href="/board/up?no="+no+"&parent_num="+parent_num+"&up="+up;
+        }
+        function down(no, parent_num, down){
+            location.href="/board/down?no="+no+"&parent_num="+parent_num+"&down="+down;
+        }
+    </script>
+    <%- include("./head.ejs") %>
+</head>
+<body>
+    <%- include("./nav.ejs") %>
+    <table>
+        <tr>
+            <th scope="cols">title</th>
+            <td id="title"><%=content[0].title%></td>
+            <th scope="cols">date</th>
+            <td id="date"><%=content[0].date%></td>
+            <th scope="cols">time</th>
+            <td id="time"><%=content[0].time%></td>
+            </tr>
+            <tr>
+                <th scope="cols">content</th>
+                <td id="content"><%=content[0].content%></td>
+                <th scope="cols">author</th>
+                <td id="author"><%=content[0].author%></td>
+            </tr>            
+            <tr>
+                <th scope="cols">image</th>
+                <td colspan="5" id="image"><img src="<%=content[0].img%>"></td>
+            </tr>
+    </table>
+    <div class="contentBtn">
+        <button onclick="update('<%=content[0].no%>')">수정</button>
+        <button onclick="del('<%=content[0].no%>')">삭제</button>         
+    </div>
+    <table class="reply">
+        <% for(var i=0; i<opinion.length; i++){%>
+        <tr>
+            <td id="cmt_id"><%=opinion[i].name%></td>
+            <td id="thums">
+                <i class="far fa-thumbs-up" onclick="up('<%=opinion[i].no%>','<%=opinion[i].parent_num%>','<%=opinion[i].up%>')"></i><%=opinion[i].up%>
+                <i class="far fa-thumbs-down" onclick="down('<%=opinion[i].no%>','<%=opinion[i].parent_num%>','<%=opinion[i].down%>')"></i><%=opinion[i].down%>
+            </td>
+            <td id="cmt_date"><%=opinion[i].date.substring(0,4)%>-<%=opinion[i].date.substring(4,6)%>-<%=opinion[i].date.substring(6,8)%> <%=opinion[i].time%></td>
+        </tr>
+        <tr>
+            <td id="cmt_content"><%=opinion[i].opinion%></td>
+            <td colspan="2" id="cmt_delBt"><button onclick="del_cmt('<%=opinion[i].no%>','<%=opinion[i].parent_num%>')">삭제</button></td>
+        </tr>
+        <%}%>
+    </table>
+        <form action="/board/add_comment" method="POST">
+            <div class="input-group input-group-sm mb-3" id="reply_input">
+                <span class="input-group-text" id="inputGroup-sizing-sm">댓글</span>
+                <input type="hidden" name="no" value="<%=content[0].no%>">
+                <input type="text" name="comment" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                <input type="submit" class="rpBtn" value="댓글 등록">
+            </div>
+        </form>
+</body>
+</html>
